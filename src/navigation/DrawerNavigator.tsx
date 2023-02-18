@@ -7,7 +7,10 @@ const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
   return (
-    <Drawer.Navigator initialRouteName={HomeScreen.name}>
+    <Drawer.Navigator
+      screenOptions={{ headerShown: false }}
+      initialRouteName={HomeScreen.name}
+    >
       <Drawer.Screen name={HomeScreen.name} component={HomeScreen.component} />
     </Drawer.Navigator>
   );
