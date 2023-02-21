@@ -1,35 +1,22 @@
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { colors } from "../../themes";
+import { colors, globalStyles } from "../../themes";
 import { layout } from "../../constants/layout";
+import AuthHeader from "./AuthHeader";
 
-const AuthScaffold = () => {
+interface AuthScaffoldProps {
+  children: React.ReactNode;
+}
+
+const AuthScaffold = ({ children }: AuthScaffoldProps) => {
   return (
-    <ScrollView style={styles.root}>
-      <View style={styles.backgroundContainer}>
-        <Image
-          style={styles.backgroundImage}
-          resizeMode="cover"
-          source={require("../../../assets/images/LoginBackgroundImage.png")}
-        />
+    <ScrollView contentContainerStyle={globalStyles.centerRoot}>
+      <View>
+        <AuthHeader />
       </View>
+      <View>{children}</View>
     </ScrollView>
   );
 };
 
 export default AuthScaffold;
-
-const styles = StyleSheet.create({
-  root: {
-    backgroundColor: colors.palette.white,
-  },
-  backgroundContainer: {
-    position: "absolute",
-    width: layout.width,
-    flexDirection: "column",
-    justifyContent: "space-between",
-  },
-  backgroundImage: {
-    width: layout.width,
-  },
-});
