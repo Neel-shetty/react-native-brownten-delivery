@@ -1,7 +1,7 @@
 // TODO: write documentation for colors and palette in own markdown file and add links from here
 
 const palette = {
-  while: "white",
+  white: "white",
   black: "black",
   pink: "pink",
   red: "red",

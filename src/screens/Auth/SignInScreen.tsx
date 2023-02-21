@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { globalStyles } from "../../themes";
 
 const SignInScreen = () => {
   return (
-    <View>
+    <View style={globalStyles.centerRoot}>
       <Text>SignInScreen</Text>
     </View>
   );
