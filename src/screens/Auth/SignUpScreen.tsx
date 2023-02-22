@@ -1,12 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { globalStyles } from "../../themes";
+import AuthScaffold from "../../components/AuthFlowComponents/AuthScaffold";
+import InputFields from "../../components/AuthFlowComponents/SignUpScreenComponents/InputFields";
 
 const SignUpScreen = () => {
   return (
-    <View style={globalStyles.centerRoot}>
-      <Text>SignUpScreen</Text>
-    </View>
+    <AuthScaffold>
+      <InputFields />
+    </AuthScaffold>
   );
 };
 

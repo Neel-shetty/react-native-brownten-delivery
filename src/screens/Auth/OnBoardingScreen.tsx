@@ -2,13 +2,14 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { globalStyles } from "../../themes";
 import SignInScreen from "./SignInScreen";
+import SignUpScreen from "./SignUpScreen";
 
 const OnBoardingScreen = ({ navigation }: any) => {
   return (
     <View style={globalStyles.centerRoot}>
       <Text
         onPress={() => {
-          navigation.navigate(SignInScreen.name);
+          navigation.navigate(SignUpScreen.name);
         }}
       >
         Go to Sign In

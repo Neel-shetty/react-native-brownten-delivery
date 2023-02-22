@@ -15,7 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import SignUpScreen from "../../../screens/Auth/SignUpScreen";
 import { SaveKey } from "../../../utils/SecureStorage";
 import { setLoggedIn } from "../../../store/UserSlice";
-import { SignInApi } from "../../../api/AuthenticateUser";
+import { SignInApi, SignUpApi } from "../../../api/AuthenticateUser";
 import PrimaryButton from "../../CommonComponents/PrimaryButton";
 
 const InputFields = () => {
@@ -34,6 +34,14 @@ const InputFields = () => {
       .string()
       .required("Password is required!")
       .min(8, "Password has to be atleast 8 characters"),
+    email: yup
+      .string()
+      .required("Email is required!")
+      .email("Email format is invalid"),
+    username: yup
+      .string()
+      .required("Username is required!")
+      .min(3, "Name too short"),
   });
 
   const goToSignUp = () => {
@@ -44,16 +52,18 @@ const InputFields = () => {
   return (
     <View>
       <Formik
-        initialValues={{ phone: "", password: "" }}
+        initialValues={{ phone: "", password: "", username: "", email: "" }}
         onSubmit={async (values) => {
           console.log(
-            "🚀 ~ file: InputFields.tsx:49 ~ onSubmit={ ~ values:",
+            "🚀 ~ file: InputFields.tsx:57 ~ onSubmit={ ~ values:",
             values
           );
           setLoading(true);
-          const result = await SignInApi({
+          const result = await SignUpApi({
             password: values.password,
             phone: values.phone,
+            email: values.email,
+            username: values.username,
           });
           if (result?.status === 1) {
             Alert.alert("Success", result.message);
@@ -77,10 +87,6 @@ const InputFields = () => {
           touched,
         }) => (
           <>
-            {console.log(
-              "🚀 ~ file: InputFields.tsx:75 ~ InputFields ~ errors:",
-              errors
-            )}
             <KeyboardAvoidingView behavior={behavior}>
               <CustomInput
                 onChangeText={handleChange("phone")}
@@ -91,6 +97,28 @@ const InputFields = () => {
               {errors.phone && touched.phone && (
                 <>
                   <Text>{errors.phone}</Text>
+                </>
+              )}
+              <CustomInput
+                onChangeText={handleChange("username")}
+                onBlur={handleBlur("username")}
+                value={values.username}
+                placeholder="Username"
+              />
+              {errors.username && touched.username && (
+                <>
+                  <Text>{errors.username}</Text>
+                </>
+              )}
+              <CustomInput
+                onChangeText={handleChange("email")}
+                onBlur={handleBlur("email")}
+                value={values.email}
+                placeholder="Email"
+              />
+              {errors.email && touched.email && (
+                <>
+                  <Text>{errors.email}</Text>
                 </>
               )}
               <CustomInput

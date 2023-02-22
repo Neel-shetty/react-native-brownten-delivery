@@ -1,14 +1,20 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React from "react";
 
-const PrimaryButton = () => {
-  return (
-    <View>
-      <Text>PrimaryButton</Text>
-    </View>
-  )
+interface PrimaryButtonProps {
+  onPress: () => void;
 }
 
-export default PrimaryButton
+const PrimaryButton = ({ onPress }: PrimaryButtonProps) => {
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <View>
+        <Text>PrimaryButton</Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
 
-const styles = StyleSheet.create({})
+export default PrimaryButton;
+
+const styles = StyleSheet.create({});
