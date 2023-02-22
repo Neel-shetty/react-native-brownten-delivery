@@ -9,7 +9,7 @@ const OnBoardingScreen = ({ navigation }: any) => {
     <View style={globalStyles.centerRoot}>
       <Text
         onPress={() => {
-          navigation.navigate(SignUpScreen.name);
+          navigation.navigate(SignInScreen.name);
         }}
       >
         Go to Sign In

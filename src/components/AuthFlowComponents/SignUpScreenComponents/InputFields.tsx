@@ -17,6 +17,7 @@ import { SaveKey } from "../../../utils/SecureStorage";
 import { setLoggedIn } from "../../../store/UserSlice";
 import { SignInApi, SignUpApi } from "../../../api/AuthenticateUser";
 import PrimaryButton from "../../CommonComponents/PrimaryButton";
+import SignInScreen from "../../../screens/Auth/SignInScreen";
 
 const InputFields = () => {
   const [loading, setLoading] = useState(false);
@@ -44,10 +45,7 @@ const InputFields = () => {
       .min(3, "Name too short"),
   });
 
-  const goToSignUp = () => {
-    //@ts-expect-error
-    navigation.navigate(SignUpScreen.name);
-  };
+  
 
   return (
     <View>

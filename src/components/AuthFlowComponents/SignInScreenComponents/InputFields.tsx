@@ -51,6 +51,11 @@ const InputFields = () => {
             values
           );
           setLoading(true);
+          //delete this later
+          dispatch(setLoggedIn(true));
+          const idk = await SaveKey("loggedIn", "true");
+          console.log("🚀 ~ file: InputFields.tsx:57 ~ onSubmit={ ~ idk:", idk);
+          //delete ends
           const result = await SignInApi({
             password: values.password,
             phone: values.phone,

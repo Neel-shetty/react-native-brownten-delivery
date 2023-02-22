@@ -17,16 +17,18 @@ const Navigator = () => {
   const dispatch = useDispatch();
 
   const loggedIn = useSelector((state: RootState) => state.user.loggedIn);
+  console.log("🚀 ~ file: Navigator.tsx:20 ~ Navigator ~ loggedIn:", loggedIn)
 
   useEffect(() => {
     async function checkLoggedIn() {
       const result = await GetKey("loggedIn");
+      console.log("🚀 ~ file: Navigator.tsx:25 ~ checkLoggedIn ~ result:", result)
       if (result === "true") {
         dispatch(setLoggedIn(true));
       }
     }
     checkLoggedIn();
-  }, []);
+  }, [loggedIn]);
 
   return (
     <NavigationContainer>
