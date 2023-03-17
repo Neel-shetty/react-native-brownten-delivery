@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import OrderDetailScreen from "../../screens/app/OrderDetailScreen";
 import { Select } from "native-base";
 import { EvilIcons } from "@expo/vector-icons";
+import { UpdateStatus } from "../../api/UpdateStatus";
 
 const OrderItem = ({ order }: any) => {
   const [selectedStatus, setSelectedStatus] = useState<string>();
@@ -84,7 +85,8 @@ const OrderItem = ({ order }: any) => {
             style={{ paddingRight: 10 }}
           />
         }
-        onValueChange={(itemValue) => {
+        onValueChange={async (itemValue) => {
+          await UpdateStatus({ id: order.order_id, value: itemValue });
           setSelectedStatus(itemValue);
         }}
       >
