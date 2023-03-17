@@ -18,6 +18,7 @@ interface CustomInputProps {
   };
   value: string;
   placeholder: string;
+  label: string;
 }
 
 const CustomInput = ({
@@ -25,9 +26,13 @@ const CustomInput = ({
   onBlur,
   value,
   placeholder,
+  label,
 }: CustomInputProps) => {
   return (
     <View style={[styles.root, globalStyles.alignCenter]}>
+      <View style={{ width: layout.widthp }}>
+        <Text style={styles.inputLabel}>{label}</Text>
+      </View>
       <TextInput
         style={styles.input}
         onChangeText={onChangeText}
@@ -44,11 +49,23 @@ export default CustomInput;
 const styles = StyleSheet.create({
   root: {
     width: layout.widthp,
-    height: 40,
-    backgroundColor: "pink",
-    marginTop: 10,
+    // height: 40,
+    // backgroundColor: "pink",
+    // marginTop: 10,
+    alignSelf: "center",
   },
   input: {
     width: layout.widthp,
+    fontSize: 18,
+    paddingVertical: layout.height * 0.012,
+    borderBottomWidth: 1,
+    borderBottomColor: "#e2e2e2",
+    marginBottom: layout.height * 0.022,
+  },
+  inputLabel: {
+    fontSize: 16,
+    lineHeight: 16,
+    height: 16,
+    color: "#7c7c7c",
   },
 });

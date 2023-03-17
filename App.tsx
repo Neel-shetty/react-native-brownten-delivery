@@ -5,6 +5,7 @@ import { store } from "./src/store/index";
 import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AppLoading } from "./src/utils/AppLoading";
+import { NativeBaseProvider } from "native-base";
 
 const queryClient = new QueryClient();
 
@@ -13,7 +14,9 @@ export default function App() {
     <AppLoading>
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
-          <Navigator />
+          <NativeBaseProvider>
+            <Navigator />
+          </NativeBaseProvider>
         </QueryClientProvider>
       </Provider>
     </AppLoading>

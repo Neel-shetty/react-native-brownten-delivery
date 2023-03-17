@@ -9,7 +9,7 @@ import { RootState } from "../store";
 import { GetKey } from "../utils/SecureStorage";
 import { setLoggedIn } from "../store/UserSlice";
 import SignUpScreen from "../screens/Auth/SignUpScreen";
-import OnBoardingScreen from "../screens/Auth/OnBoardingScreen";
+import OrderDetailScreen from "../screens/app/OrderDetailScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,12 +17,15 @@ const Navigator = () => {
   const dispatch = useDispatch();
 
   const loggedIn = useSelector((state: RootState) => state.user.loggedIn);
-  console.log("🚀 ~ file: Navigator.tsx:20 ~ Navigator ~ loggedIn:", loggedIn)
+  console.log("🚀 ~ file: Navigator.tsx:20 ~ Navigator ~ loggedIn:", loggedIn);
 
   useEffect(() => {
     async function checkLoggedIn() {
-      const result = await GetKey("loggedIn");
-      console.log("🚀 ~ file: Navigator.tsx:25 ~ checkLoggedIn ~ result:", result)
+      const result = await GetKey("isLoggedIn");
+      console.log(
+        "🚀 ~ file: Navigator.tsx:25 ~ checkLoggedIn ~ result:",
+        result
+      );
       if (result === "true") {
         dispatch(setLoggedIn(true));
       }
@@ -39,20 +42,16 @@ const Navigator = () => {
               name={DrawerNavigator.name}
               component={DrawerNavigator.component}
             />
+            <Stack.Screen
+              name={OrderDetailScreen.name}
+              component={OrderDetailScreen.component}
+            />
           </>
         ) : (
           <>
             <Stack.Screen
-              name={OnBoardingScreen.name}
-              component={OnBoardingScreen.component}
-            />
-            <Stack.Screen
               name={SignInScreen.name}
               component={SignInScreen.component}
-            />
-            <Stack.Screen
-              name={SignUpScreen.name}
-              component={SignUpScreen.component}
             />
           </>
         )}

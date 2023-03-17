@@ -17,6 +17,7 @@ import { SaveKey } from "../../../utils/SecureStorage";
 import { setLoggedIn } from "../../../store/UserSlice";
 import { SignInApi } from "../../../api/AuthenticateUser";
 import PrimaryButton from "../../CommonComponents/PrimaryButton";
+import { layout } from "../../../constants/layout";
 
 const InputFields = () => {
   const [loading, setLoading] = useState(false);
@@ -42,7 +43,7 @@ const InputFields = () => {
   };
 
   return (
-    <View>
+    <View style={{ width: layout.width, alignItems: "center" }}>
       <Formik
         initialValues={{ phone: "", password: "" }}
         onSubmit={async (values) => {
@@ -52,14 +53,15 @@ const InputFields = () => {
           );
           setLoading(true);
           //delete this later
-          dispatch(setLoggedIn(true));
-          const idk = await SaveKey("loggedIn", "true");
-          console.log("🚀 ~ file: InputFields.tsx:57 ~ onSubmit={ ~ idk:", idk);
+          // dispatch(setLoggedIn(true));
+          // const idk = await SaveKey("loggedIn", "true");
+          // console.log("🚀 ~ file: InputFields.tsx:57 ~ onSubmit={ ~ idk:", idk);
           //delete ends
           const result = await SignInApi({
             password: values.password,
             phone: values.phone,
           });
+          console.log("🚀 ~ file: InputFields.tsx:63 ~ result:", result);
           if (result?.status === 1) {
             Alert.alert("Success", result.message);
             await SaveKey("isLoggedIn", "true");
@@ -88,6 +90,7 @@ const InputFields = () => {
             )}
             <KeyboardAvoidingView behavior={behavior}>
               <CustomInput
+                label="Phone Number"
                 onChangeText={handleChange("phone")}
                 onBlur={handleBlur("phone")}
                 value={values.phone}
@@ -95,10 +98,12 @@ const InputFields = () => {
               />
               {errors.phone && touched.phone && (
                 <>
-                  <Text>{errors.phone}</Text>
+                  <Text style={styles.errorText}>{errors.phone}</Text>
+                  <View style={{ marginTop: layout.height * 0.011 }} />
                 </>
               )}
               <CustomInput
+                label="Password"
                 onChangeText={handleChange("password")}
                 onBlur={handleBlur("password")}
                 value={values.password}
@@ -106,11 +111,16 @@ const InputFields = () => {
               />
               {errors.password && touched.password && (
                 <>
-                  <Text>{errors.password}</Text>
+                  <Text style={styles.errorText}>{errors.password}</Text>
+                  <View style={{ marginTop: layout.height * 0.011 }} />
                 </>
               )}
             </KeyboardAvoidingView>
-            <PrimaryButton onPress={handleSubmit} />
+            <PrimaryButton
+              loading={loading}
+              title="Sign In"
+              onPress={handleSubmit}
+            />
           </>
         )}
       </Formik>
@@ -120,4 +130,9 @@ const InputFields = () => {
 
 export default InputFields;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  errorText: {
+    color: "red",
+    fontFamily: "poppins-regular",
+  },
+});
