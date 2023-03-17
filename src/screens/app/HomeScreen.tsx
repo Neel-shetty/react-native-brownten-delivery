@@ -46,7 +46,7 @@ const HomeScreen = ({ navigation }: any) => {
   return (
     <View style={styles.root}>
       <View style={styles.headerContainer}>
-        <Text style={styles.text}>My Orders</Text>
+        <Text style={styles.text}>Orders</Text>
       </View>
       <FlatList
         data={orders?.data?.data}

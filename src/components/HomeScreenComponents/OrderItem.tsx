@@ -6,6 +6,7 @@ import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import OrderDetailScreen from "../../screens/app/OrderDetailScreen";
 import { Select } from "native-base";
+import { EvilIcons } from "@expo/vector-icons";
 
 const OrderItem = ({ order }: any) => {
   const [selectedStatus, setSelectedStatus] = useState<string>();
@@ -29,6 +30,7 @@ const OrderItem = ({ order }: any) => {
             <Text style={styles.subtitle} numberOfLines={3}>
               {order.shipping_address}
             </Text>
+            <Text style={styles.subtitle}>OTP - {order.otp}</Text>
             <Text style={styles.subtitle}>Phone - 9834567890</Text>
             <Text style={styles.subtitle}>
               Payment - {order.payment_method}
@@ -57,7 +59,11 @@ const OrderItem = ({ order }: any) => {
       </View>
       {/* </TouchableOpacity> */}
       <Select
-        style={{ borderRadius: 10 }}
+        style={[
+          { borderRadius: 10 },
+          //@ts-ignore
+          { fontFamily: "poppins-medium", color: "black", fontSize: 15 },
+        ]}
         selectedValue={selectedStatus}
         minWidth={layout.widthp}
         placeholder="Choose Delivery Status"
@@ -65,11 +71,19 @@ const OrderItem = ({ order }: any) => {
           bg: "#53B175",
           borderRadius: 10,
           color: "white",
-          _text: { color: "white" },
+          _text: { color: "white", fontFamily: "poppins-medium" },
           // endIcon: <CheckIcon size="5" />,
         }}
-        _item={{}}
+        _item={{ _text: { fontFamily: "poppins-medium" } }}
         mt={1}
+        dropdownIcon={
+          <EvilIcons
+            name="chevron-down"
+            size={24}
+            color={"black"}
+            style={{ paddingRight: 10 }}
+          />
+        }
         onValueChange={(itemValue) => {
           setSelectedStatus(itemValue);
         }}
