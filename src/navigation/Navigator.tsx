@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import DrawerNavigator from "./DrawerNavigator";
@@ -10,6 +10,7 @@ import { GetKey } from "../utils/SecureStorage";
 import { setLoggedIn } from "../store/UserSlice";
 import SignUpScreen from "../screens/Auth/SignUpScreen";
 import OrderDetailScreen from "../screens/app/OrderDetailScreen";
+import * as SplashScreen from "expo-splash-screen";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,7 +20,8 @@ const Navigator = () => {
   const loggedIn = useSelector((state: RootState) => state.user.loggedIn);
   console.log("🚀 ~ file: Navigator.tsx:20 ~ Navigator ~ loggedIn:", loggedIn);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    SplashScreen.preventAutoHideAsync();
     async function checkLoggedIn() {
       const result = await GetKey("isLoggedIn");
       console.log(
@@ -29,6 +31,7 @@ const Navigator = () => {
       if (result === "true") {
         dispatch(setLoggedIn(true));
       }
+      await SplashScreen.hideAsync();
     }
     checkLoggedIn();
   }, [loggedIn]);
