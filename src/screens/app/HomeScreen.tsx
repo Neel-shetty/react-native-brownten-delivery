@@ -5,6 +5,7 @@ import {
   Button,
   FlatList,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -58,12 +59,16 @@ const HomeScreen = ({ navigation }: any) => {
         </TouchableOpacity>
       </View>
       <View style={{ flex: 8 }}>
-        <FlatList
-          data={orders?.data?.data}
-          renderItem={({ item }) => <OrderItem order={item} />}
-          refreshing={refresh}
-          onRefresh={() => setRefresh(true)}
-        />
+        {isLoading ? (
+          <ActivityIndicator size={"large"} />
+        ) : (
+          <FlatList
+            data={orders?.data?.data}
+            renderItem={({ item }) => <OrderItem order={item} />}
+            refreshing={refresh}
+            onRefresh={() => setRefresh(true)}
+          />
+        )}
       </View>
     </View>
   );

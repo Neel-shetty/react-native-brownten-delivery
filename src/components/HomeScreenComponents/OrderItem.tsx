@@ -8,6 +8,7 @@ import OrderDetailScreen from "../../screens/app/OrderDetailScreen";
 import { Select } from "native-base";
 import { EvilIcons } from "@expo/vector-icons";
 import { UpdateStatus } from "../../api/UpdateStatus";
+import * as Linking from "expo-linking";
 
 const OrderItem = ({ order }: any) => {
   const [selectedStatus, setSelectedStatus] = useState<string>();
@@ -41,7 +42,11 @@ const OrderItem = ({ order }: any) => {
         </View>
         <View style={styles.editContainer}>
           <Text style={styles.cost}>₹{order.total_amount}</Text>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              Linking.openURL(`tel:${order.phone}`);
+            }}
+          >
             <View
               style={{
                 height: 40,
@@ -94,7 +99,7 @@ const OrderItem = ({ order }: any) => {
         <Select.Item label="Delivered" value="Delivered" />
         <Select.Item label="Shipped" value="Shipped" />
         <Select.Item label="Return" value="Return" />
-        <Select.Item label="Pending" value="Pending" />
+        {/* <Select.Item label="Pending" value="Pending" /> */}
       </Select>
       <View
         style={{
